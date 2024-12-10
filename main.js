@@ -37,3 +37,24 @@ const kittenThree = `<li class="card">
 `
 
 jsList.innerHTML = kittenOne + kittenTwo + kittenThree;
+
+const btnAdd = document.querySelector('.js-btn-add');
+const newForm = document.querySelector('.new-form');
+const btnCancel = document.querySelector('.js-btn-cancel');
+const inputURL = document.querySelector('.js-input-url');
+const inputName = document.querySelector('.js-input-name');
+const inputRace = document.querySelector('.js-input-race');
+const inputDes = document.querySelector('.js-input-des');
+
+
+btnAdd.addEventListener('click',()=>{
+    newForm.classList.toggle('collapsed');
+});
+
+btnCancel.addEventListener('click', ()=>{
+    newForm.classList.add('collapsed');
+    inputURL.value = '';
+    inputName.value = '';
+    inputRace.value = '';
+    inputDes.value = '';
+});
