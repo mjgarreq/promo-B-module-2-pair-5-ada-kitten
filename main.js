@@ -1,7 +1,9 @@
 'use strict';
 
+//Llamamos a la sección del formulario (la lista de gatitos)
 const jsList = document.querySelector('.js-list');
 
+// Creamos variables de cada gatito (url-img, nombre, descripción y raza)
 const kittenImage1 = 'https://dev.adalab.es/gato-siames.webp';
 
 const kittenName1 = 'Anastacio'
@@ -26,41 +28,32 @@ const kittenDesc3 = "Tienen la cabeza cuadrada y los ojos simétricos, por lo qu
 
 const kittenRace3 = "Maine Coon";
 
-const kittenOne = `<li class="card">
-  <img
+// Creamos una función para meter todo el código de lo que debe aparecer en cada artículo de gatito
+function renderKitten(url, name, race, desc) {
+  return `<li class="card">
+    <img
     class="card_img"
-    src= "${kittenImage1}"
-    alt="gatito"
-  />
-  <h3 class="card_title">${kittenName1.toUpperCase()}</h3>
-  <h4 class="card_race">${kittenRace1}</h4>
-  <p class="card_description">
-      ${kittenDesc1}
-   </p>
-</li>`;
-
-const kittenTwo = `<li class="card">
-    <img class="card_img" src= "${kittenImage2}" alt="sphynx-cat" />
-    <h3 class="card_title">${kittenName2.toUpperCase()}</h3>
-    <h4 class="card_race">${kittenRace2}</h4>
+    src= "${url}"
+    alt="gatito"/>
+    <h3 class="card_title">${name}</h3>
+    <h4 class="card_race">${race}</h4>
     <p class="card_description">
-        ${kittenDesc2}
+    ${desc}
     </p>
-</li>
-`
+    </li>`;
+}
 
-const kittenThree = `<li class="card">
-    <img class="card_img" src="${kittenImage3}" alt="maine-coon-cat" />
-    <h3 class="card_title">${kittenName3.toUpperCase()}</h3>
-    <h4 class="card_race">${kittenRace3}</h4>
-    <p class="card_description">
-        ${kittenDesc3}
-    </p>
-</li>
-`
+// Cramos variables y ejecutamos la funicón de arriba para pintar los 3 gatitos que ya estaban en la página (cambiando el nombre de los parámetros de entrada por las variables creadas más arriba)
+const kittenOne = renderKitten(kittenImage1, kittenName1, kittenRace1, kittenDesc1);
 
+const kittenTwo = renderKitten(kittenImage2, kittenName2, kittenRace2, kittenDesc2);
+
+const kittenThree = renderKitten(kittenImage3, kittenName3, kittenRace3, kittenDesc3);
+
+// Pintamos en el html los gatitos
 jsList.innerHTML = kittenOne + kittenTwo + kittenThree;
 
+// Creamos variables ara el formulario de crear más gatitos
 const btnAdd = document.querySelector('.js-btn-add');
 const newForm = document.querySelector('.new-form');
 const btnCancel = document.querySelector('.js-btn-cancel');
@@ -69,6 +62,7 @@ const inputName = document.querySelector('.js-input-name');
 const inputRace = document.querySelector('.js-input-race');
 const inputDes = document.querySelector('.js-input-des');
 
+//Creamos dos funciones, una para añadir la clase collapsed y que desaparezca el fomrulario, y otra para quitar la clase collapsed y que aparezca.
 function showNewCatForm() {
     newForm.classList.remove("collapsed");
   }
@@ -76,16 +70,19 @@ function hideNewCatForm() {
     newForm.classList.add("collapsed");
 }
 
+// Creamos una función mpara manejar el evento del click del botón y metemos las dos funciones de collapsed anteriores
 function handleClickNewCatForm(event) {
     if (newForm.classList.contains("collapsed")) {
       showNewCatForm ();
     } else {
       hideNewCatForm ();
     }
-  }
+}
 
+// Creamos el evento en el botón para que ejecute la función manejadora
 btnAdd.addEventListener('click', handleClickNewCatForm);
 
+// Creamos un evento al botón de cancelar de dentro del formulario de crear nuevos gatitos para que al darle, se añada la clase collapsed y se reseteen los valores de los inputs
 btnCancel.addEventListener('click', ()=>{
     newForm.classList.add('collapsed');
     inputURL.value = '';
@@ -94,14 +91,12 @@ btnCancel.addEventListener('click', ()=>{
     inputDes.value = '';
 });
 
+// Creamos variables para la sección de buscar
 const searchButton = document.querySelector('.js_button-search');
 
 const input_search_desc = document .querySelector('.js_in_search_desc');
 
-
-
-
-
+// Creamos evento para el botón de la sección de buscar
 searchButton.addEventListener("click", (ev) => {
     ev.preventDefault();
     const descrSearchText = input_search_desc.value; // Recoge el valor del input de la descripción en una variable
@@ -117,7 +112,3 @@ searchButton.addEventListener("click", (ev) => {
         jsList.innerHTML = kittenThree; 
       }
   });
-
-  let breedText = "";
-  
-  
