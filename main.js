@@ -82,33 +82,49 @@ function handleClickNewCatForm(event) {
 // Creamos el evento en el botón para que ejecute la función manejadora
 btnAdd.addEventListener('click', handleClickNewCatForm);
 
-// Creamos un evento al botón de cancelar de dentro del formulario de crear nuevos gatitos para que al darle, se añada la clase collapsed y se reseteen los valores de los inputs
-btnCancel.addEventListener('click', ()=>{
-    newForm.classList.add('collapsed');
-    inputURL.value = '';
-    inputName.value = '';
-    inputRace.value = '';
-    inputDes.value = '';
-});
+//Creamos una función que añada la clase collapsed al formulario y se reseteen los valores de los inputs
+const cancelCatForm = ()=>{
+  newForm.classList.add('collapsed');
+  inputURL.value = '';
+  inputName.value = '';
+  inputRace.value = '';
+  inputDes.value = ''; //creo que se podría poner también inputReset.reset()
+}
+
+// Creamos un evento para escuchar el botón cancelar
+btnCancel.addEventListener('click', cancelCatForm);
 
 // Creamos variables para la sección de buscar
 const searchButton = document.querySelector('.js_button-search');
 
 const input_search_desc = document .querySelector('.js_in_search_desc');
 
+
+//Creamos la función que recoge los datos que escribe la usuaria en buscar y pinta los gatitos acorde a las palabras
+const filterKitten = (ev) => {
+  ev.preventDefault();
+  const descrSearchText = input_search_desc.value; // Recoge el valor del input de la descripción en una variable
+  if (kittenDesc1.includes(descrSearchText)) {
+      jsList.innerHTML = kittenOne;      
+    }
+    
+    if (kittenDesc2.includes(descrSearchText)) {
+      jsList.innerHTML = kittenTwo;
+    }
+    
+    if (kittenDesc3.includes(descrSearchText)) {
+      jsList.innerHTML = kittenThree; 
+    }
+}
+
 // Creamos evento para el botón de la sección de buscar
-searchButton.addEventListener("click", (ev) => {
-    ev.preventDefault();
-    const descrSearchText = input_search_desc.value; // Recoge el valor del input de la descripción en una variable
-    if (kittenDesc1.includes(descrSearchText)) {
-        jsList.innerHTML = kittenOne;      
-      }
-      
-      if (kittenDesc2.includes(descrSearchText)) {
-        jsList.innerHTML = kittenTwo;
-      }
-      
-      if (kittenDesc3.includes(descrSearchText)) {
-        jsList.innerHTML = kittenThree; 
-      }
-  });
+searchButton.addEventListener("click", filterKitten);
+
+
+//EXPLICACIONES PARA MAJO
+//16.12 
+//En searchButton.addEventListener sustituir la función arrow que teníamos antes por'filterKitten' (que es una función nueva creada pero que lleva lo mismo que teníamos antes escrito, es decir es la función que recoge los datos que escribe la usuaria en buscar y pinta los gatitos acorde a las palabras)
+
+//En btnCancel.addEventListener sustituir la función arrow que teníamos antes por 'cancelCatForm'(más de lo mismo)
+
+//Yo lo entiendo como fragmentar las funciones, para que cada una haga sólo una cosa y no tengamos tanto codigo dentro de la función addEventListener
